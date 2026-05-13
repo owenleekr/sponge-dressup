@@ -103,13 +103,16 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Find image part in candidates
+  // Find image part in candidates — Gemini may return either camelCase or snake_case
   const imagePart = data.candidates
     ?.flatMap((c) => c.content?.parts ?? [])
     .find((p) => p.inlineData?.data || p.inline_data?.data);
 
-  const inline = imagePart?.inlineData ?? imagePart?.inline_data;
-  if (!inline?.data) {
+  const data64 = imagePart?.inlineData?.data ?? imagePart?.inline_data?.data;
+  const mimeType =
+    imagePart?.inlineData?.mimeType ?? imagePart?.inline_data?.mime_type ?? "image/png";
+
+  if (!data64) {
     return NextResponse.json(
       { error: "이미지를 생성하지 못했습니다. 다시 시도해주세요." },
       { status: 502 }
@@ -117,7 +120,7 @@ export async function POST(req: NextRequest) {
   }
 
   return NextResponse.json({
-    image: `data:${inline.mimeType ?? "image/png"};base64,${inline.data}`,
+    image: `data:${mimeType};base64,${data64}`,
     prompt,
   });
 }
