@@ -111,7 +111,7 @@ async function generateAndSave(
   throw new Error(`Failed after 3 attempts: ${category}/${id}`);
 }
 
-const BASE = `A cute 3D Blender-style mascot character on a fully transparent background, isometric front-facing view, standing upright, full body visible from head to feet, soft studio lighting, no shadow.
+const BASE = `A cute 3D Blender-style mascot character on a PURE WHITE solid background (#FFFFFF). No checker pattern, no transparency, no gradient. Clean uniform white behind. No shadow under character. Isometric front-facing view, standing upright, full body visible from head to feet, soft studio lighting.
 Character body: cube-shaped sponge cheese with multiple holes, bright yellow color, simple smiling face with two black oval eyes and curved mouth. Body fixed yellow.
 Style: matte plastic toy figurine, clean simple shapes, no text, no extra props, no watermarks, no logos other than what's specified.
 Single character centered.`;

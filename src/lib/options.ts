@@ -36,6 +36,12 @@ export const HATS: Hat[] = [
   { id: "crown",      ko: "왕관",       prompt: "a small golden crown sitting on top with one tiny jewel" },
   { id: "headphones", ko: "헤드폰",     prompt: "large over-ear headphones worn on top, sleek black design, no logos" },
   { id: "flower",     ko: "꽃 머리띠",  prompt: "a thin headband decorated with a single small flower on the side, no other icons" },
+  { id: "cowboy",     ko: "카우보이",   prompt: "a brown leather cowboy hat with curled wide brim, classic Western style" },
+  { id: "tophat",     ko: "톱햇",       prompt: "a tall black formal top hat with a ribbon band, classic magician/gentleman style" },
+  { id: "beret",      ko: "베레모",     prompt: "a soft red beret tilted slightly to one side, artist style" },
+  { id: "bucket",     ko: "버킷햇",     prompt: "a casual bucket hat with a soft floppy brim, plain solid color" },
+  { id: "bunny",      ko: "토끼 귀",    prompt: "a pair of cute bunny ears headband, soft white plush with pink inner ears" },
+  { id: "santa",      ko: "산타 모자",  prompt: "a classic red Santa Claus hat with white fur trim and a white pom-pom" },
   { id: "none",       ko: "모자 없음",   prompt: "no hat at all, bare top showing the sponge texture clearly" },
 ];
 
@@ -56,6 +62,14 @@ export const OUTFITS: Outfit[] = [
   { id: "trench",      ko: "트렌치코트",   prompt: "a stylish belted trench coat over a simple shirt, with the notepad-and-sparkle icon as a chest pin" },
   { id: "dress",       ko: "원피스",       prompt: "a simple cute one-piece dress with the notepad-and-sparkle icon embroidered on the chest" },
   { id: "lab",         ko: "연구원복",     prompt: "a white lab coat over a turtleneck, with safety glasses on top of the head and the notepad-and-sparkle icon on the chest pocket" },
+  { id: "spacesuit",   ko: "우주복",       prompt: "a futuristic astronaut spacesuit with chest control panel and the notepad-and-sparkle icon embroidered as a mission patch" },
+  { id: "puffer",      ko: "패딩",         prompt: "a thick puffer down jacket with horizontal quilting, the notepad-and-sparkle icon embroidered on the chest" },
+  { id: "leather",     ko: "가죽자켓",     prompt: "a sleek black leather biker jacket with metal zippers, the notepad-and-sparkle icon as a small chest pin" },
+  { id: "hawaiian",    ko: "하와이안 셔츠", prompt: "a colorful Hawaiian aloha shirt with tropical flower pattern, the notepad-and-sparkle icon as a small chest button" },
+  { id: "knight",      ko: "기사 갑옷",    prompt: "shiny silver knight armor breastplate with chainmail underneath, the notepad-and-sparkle icon engraved on the chest plate" },
+  { id: "raincoat",    ko: "우비",         prompt: "a bright yellow rain coat with hood folded down, the notepad-and-sparkle icon printed on the chest" },
+  { id: "dressshirt",  ko: "셔츠+슬랙스",  prompt: "a crisp white dress shirt with rolled-up sleeves and dark slacks, the notepad-and-sparkle icon on the chest pocket" },
+  { id: "wetsuit",     ko: "잠수복",       prompt: "a sleek black-and-yellow wetsuit, the notepad-and-sparkle icon printed on the chest" },
 ];
 
 export const COLORS: Color[] = [
@@ -109,7 +123,7 @@ export function buildPrompt(args: {
     : `No name badge.`;
 
   return [
-    `A cute 3D Blender-style mascot character, transparent background, no shadow, soft studio lighting.`,
+    `A cute 3D Blender-style mascot character on a PURE WHITE solid background (#FFFFFF). No checker pattern, no transparency, no gradient, no shadow under the character — just clean uniform white behind.`,
     `Character body: cube-shaped sponge cheese with multiple visible holes, bright yellow color, simple smiling face with two black oval eyes and a small curved mouth. Body is fixed yellow — do not change body color.`,
     `Posture: ALWAYS STANDING UPRIGHT, front-facing, FULL BODY visible from head to feet. NEVER sitting, never crouching, never lying down, never at an extreme angle. Character takes the center of the frame.`,
     `Community signature: a small notepad-with-sparkle icon must appear ONLY on the clothing (chest pocket / chest area). Do NOT place this icon on the hat — the hat is fully decorative and free of brand marks.`,
@@ -119,6 +133,6 @@ export function buildPrompt(args: {
     nameTagSpec,
     `IMPORTANT: Do NOT add any speech bubbles, callouts, dialog boxes, or any text overlays in the scene around the character. Only the name badge on the chest (if any) carries text.`,
     `Style: matte plastic toy figurine, clean simple shapes, no extra props, no other logos, no watermarks, no captions, no UI elements floating in space.`,
-    `Output: single character centered, transparent background PNG, square 1:1, isometric front-facing view, standing pose.`,
+    `Output: single character centered on a PURE WHITE #FFFFFF background, square 1:1, isometric front-facing view, standing pose. Easy to chroma-key out.`,
   ].join(" ");
 }
