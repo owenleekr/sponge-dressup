@@ -15,8 +15,6 @@ type GenerateBody = {
   colorId: string;
   accessoryId: string;
   nameTag: string;
-  bubbleLeft: string;
-  bubbleRight: string;
 };
 
 type GeminiPart = {
@@ -54,8 +52,6 @@ export async function POST(req: NextRequest) {
     colorId: body.colorId,
     accessoryId: body.accessoryId,
     nameTag: body.nameTag ?? "",
-    bubbleLeft: body.bubbleLeft ?? "",
-    bubbleRight: body.bubbleRight ?? "",
   });
 
   // Optional reference image for character consistency

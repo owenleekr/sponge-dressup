@@ -98,8 +98,6 @@ export function buildPrompt(args: {
   colorId: string;
   accessoryId: string;
   nameTag: string;
-  bubbleLeft: string;
-  bubbleRight: string;
 }): string {
   const hat = HATS.find((h) => h.id === args.hatId) ?? HATS[0];
   const outfit = OUTFITS.find((o) => o.id === args.outfitId) ?? OUTFITS[0];
@@ -110,17 +108,6 @@ export function buildPrompt(args: {
     ? `Wearing a small rectangular name badge (white background, ~6:2 horizontal proportions) clipped to the upper chest at heart level, FRONT-FACING and CLEARLY VISIBLE in the final image. The badge must NOT be hidden behind the laptop, mic, book, or any accessory. Print the text "${args.nameTag.trim()}" in bold black sans-serif font, large enough to read. If the accessory would block the chest, place the badge slightly to the side but still on the chest area.`
     : `No name badge.`;
 
-  const bL = args.bubbleLeft.trim();
-  const bR = args.bubbleRight.trim();
-  const bubbleSpec =
-    bL || bR
-      ? `Add cartoon speech bubbles next to the character, ${
-          bL ? `a pastel rounded speech bubble on the LEFT containing the text "${bL}"` : ""
-        }${bL && bR ? ", and " : ""}${
-          bR ? `a pastel rounded speech bubble on the RIGHT containing the text "${bR}"` : ""
-        }. Text inside bubbles must be clearly readable in bold sans-serif font, matching the cheerful 3D toy style. Bubbles float at character head height.`
-      : `No speech bubbles.`;
-
   return [
     `A cute 3D Blender-style mascot character, transparent background, no shadow, soft studio lighting.`,
     `Character body: cube-shaped sponge cheese with multiple visible holes, bright yellow color, simple smiling face with two black oval eyes and a small curved mouth. Body is fixed yellow — do not change body color.`,
@@ -130,8 +117,8 @@ export function buildPrompt(args: {
     `Outfit: ${color.prompt} ${outfit.prompt}.`,
     `Pose / holding: ${accessory.prompt}.`,
     nameTagSpec,
-    bubbleSpec,
-    `Style: matte plastic toy figurine, clean simple shapes, no text overlay other than the name badge and speech bubbles if any, no extra props, no other logos, no watermarks.`,
+    `IMPORTANT: Do NOT add any speech bubbles, callouts, dialog boxes, or any text overlays in the scene around the character. Only the name badge on the chest (if any) carries text.`,
+    `Style: matte plastic toy figurine, clean simple shapes, no extra props, no other logos, no watermarks, no captions, no UI elements floating in space.`,
     `Output: single character centered, transparent background PNG, square 1:1, isometric front-facing view, standing pose.`,
   ].join(" ");
 }

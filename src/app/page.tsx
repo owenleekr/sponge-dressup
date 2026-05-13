@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import {
   HATS,
@@ -9,6 +9,7 @@ import {
   ACCESSORIES,
   DEFAULTS,
 } from "@/lib/options";
+import { compositeBubbles } from "@/lib/bubbles";
 
 type Result = {
   image: string;
@@ -26,7 +27,22 @@ export default function Home() {
 
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<Result>(null);
+  const [rawImage, setRawImage] = useState<string | null>(null); // 말풍선 없는 원본 (재합성용)
   const [error, setError] = useState<string | null>(null);
+
+  // 말풍선 텍스트 변경 시 즉시 재합성 (재생성 안 함)
+  useEffect(() => {
+    if (!rawImage) return;
+    let cancelled = false;
+    compositeBubbles(rawImage, bubbleLeft, bubbleRight).then((composited) => {
+      if (!cancelled) {
+        setResult((prev) => (prev ? { ...prev, image: composited } : prev));
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [bubbleLeft, bubbleRight, rawImage]);
 
   async function handleGenerate() {
     setLoading(true);
@@ -36,13 +52,16 @@ export default function Home() {
       const res = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ hatId, outfitId, colorId, accessoryId, nameTag, bubbleLeft, bubbleRight }),
+        body: JSON.stringify({ hatId, outfitId, colorId, accessoryId, nameTag }),
       });
       const data = await res.json();
       if (!res.ok) {
         setError(data.error ?? "생성 실패");
       } else {
-        setResult({ image: data.image, prompt: data.prompt });
+        // 한글 텍스트 안정성을 위해 말풍선은 Canvas로 합성
+        setRawImage(data.image);
+        const composited = await compositeBubbles(data.image, bubbleLeft, bubbleRight);
+        setResult({ image: composited, prompt: data.prompt });
       }
     } catch (e) {
       setError((e as Error).message);
@@ -157,7 +176,7 @@ export default function Home() {
               />
             </div>
             <p className="mt-2 text-xs opacity-50">
-              둘 다 비우면 말풍선 없이 생성됨. 한글은 표시가 불안정할 수 있어요.
+              둘 다 비우면 말풍선 없이 생성됨. 한글 OK — 텍스트 바꾸면 재생성 없이 즉시 반영.
             </p>
           </div>
 
