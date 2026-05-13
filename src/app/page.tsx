@@ -118,12 +118,14 @@ export default function Home() {
         <section className="space-y-6">
           <PickerGroup
             label="모자"
+            category="hats"
             options={HATS}
             valueId={hatId}
             onChange={setHatId}
           />
           <PickerGroup
             label="옷"
+            category="outfits"
             options={OUTFITS}
             valueId={outfitId}
             onChange={setOutfitId}
@@ -135,6 +137,7 @@ export default function Home() {
           />
           <PickerGroup
             label="액세서리"
+            category="accessories"
             options={ACCESSORIES}
             valueId={accessoryId}
             onChange={setAccessoryId}
@@ -277,11 +280,13 @@ export default function Home() {
 
 function PickerGroup<T extends { id: string; ko: string }>({
   label,
+  category,
   options,
   valueId,
   onChange,
 }: {
   label: string;
+  category: "hats" | "outfits" | "accessories";
   options: readonly T[];
   valueId: string;
   onChange: (id: string) => void;
@@ -296,13 +301,23 @@ function PickerGroup<T extends { id: string; ko: string }>({
             <button
               key={opt.id}
               onClick={() => onChange(opt.id)}
-              className={`px-3 py-3 text-sm font-bold border-2 transition ${
+              className={`flex flex-col items-center gap-1 px-2 py-2 border-2 transition ${
                 active
-                  ? "bg-[#0A0A0A] text-white border-[#0A0A0A]"
+                  ? "bg-[#FBE830] border-[#0A0A0A]"
                   : "bg-white text-[#0A0A0A] border-[#0A0A0A]/20 hover:border-[#0A0A0A]"
               }`}
             >
-              {opt.ko}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`/thumbs/${category}/${opt.id}.png`}
+                alt=""
+                className="w-16 h-16 object-contain"
+                loading="lazy"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).style.visibility = "hidden";
+                }}
+              />
+              <span className="text-xs font-bold">{opt.ko}</span>
             </button>
           );
         })}

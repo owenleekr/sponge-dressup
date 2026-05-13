@@ -49,6 +49,17 @@ http://localhost:3001 접속.
 
 - Gemini 2.5 Flash Image: 장당 약 **$0.039**
 - 70명 × 3장 평균 = 약 **$8-10 전체**
+- 옵션별 썸네일 35장 한 번 생성: 약 **$1.40** (재생성 안 함, 캐싱됨)
+
+### 썸네일 (옵션 미리보기) 재생성
+
+옵션을 추가/수정한 경우, 썸네일 재생성:
+
+```bash
+npm run thumbs
+```
+
+기존 PNG가 있으면 건너뜀. 새로 추가한 옵션만 생성. `public/thumbs/{hats,outfits,accessories}/{id}.png`
 
 ---
 
