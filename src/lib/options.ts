@@ -40,14 +40,22 @@ export const HATS: Hat[] = [
 ];
 
 export const OUTFITS: Outfit[] = [
-  { id: "overalls", ko: "멜빵바지", prompt: "denim-style overalls with a notepad-and-sparkle icon patch on the chest pocket" },
-  { id: "hoodie",   ko: "후드티",   prompt: "a cozy hoodie with the notepad-and-sparkle icon printed on the chest" },
-  { id: "suit",     ko: "정장",     prompt: "a sharp business suit with a small notepad-and-sparkle pin on the lapel" },
-  { id: "tshirt",   ko: "티셔츠",   prompt: "a simple t-shirt with the notepad-and-sparkle icon printed on the chest" },
-  { id: "hanbok",   ko: "한복",     prompt: "a traditional Korean hanbok jeogori with the notepad-and-sparkle icon as a decorative norigae" },
-  { id: "sports",   ko: "운동복",   prompt: "athletic tracksuit with the notepad-and-sparkle icon on the chest" },
-  { id: "doctor",   ko: "의사 가운", prompt: "a white doctor coat with a stethoscope and the notepad-and-sparkle icon on the chest pocket" },
-  { id: "chef",     ko: "요리사복", prompt: "a chef's double-breasted jacket with the notepad-and-sparkle icon embroidered on the chest" },
+  { id: "overalls",    ko: "멜빵바지",     prompt: "denim-style overalls with a notepad-and-sparkle icon patch on the chest pocket" },
+  { id: "hoodie",      ko: "후드티",       prompt: "a cozy oversized hoodie with the notepad-and-sparkle icon printed on the chest" },
+  { id: "suit",        ko: "정장",         prompt: "a sharp business suit with a small notepad-and-sparkle pin on the lapel" },
+  { id: "tshirt",      ko: "티셔츠",       prompt: "a simple short-sleeve t-shirt with the notepad-and-sparkle icon printed on the chest" },
+  { id: "hanbok",      ko: "한복",         prompt: "a traditional Korean hanbok jeogori with the notepad-and-sparkle icon as a decorative norigae on the chest" },
+  { id: "sports",      ko: "운동복",       prompt: "athletic zip-up tracksuit jacket with the notepad-and-sparkle icon embroidered on the chest" },
+  { id: "doctor",      ko: "의사 가운",    prompt: "a clean white doctor coat over a shirt, with a stethoscope around the neck and the notepad-and-sparkle icon on the chest pocket" },
+  { id: "chef",        ko: "요리사복",     prompt: "a chef's double-breasted jacket with the notepad-and-sparkle icon embroidered on the chest" },
+  { id: "cardigan",    ko: "가디건",       prompt: "a soft knit cardigan over a collared shirt, with the notepad-and-sparkle icon as a small chest pin" },
+  { id: "denim_shirt", ko: "데님 셔츠",    prompt: "a casual denim button-up shirt with rolled-up sleeves and the notepad-and-sparkle icon on the chest pocket" },
+  { id: "pajamas",     ko: "파자마",       prompt: "cute cozy pajama set with cloud pattern and the notepad-and-sparkle icon embroidered on the chest" },
+  { id: "pilot",       ko: "조종사복",     prompt: "an airline pilot uniform with epaulets, white shirt and tie, and the notepad-and-sparkle icon as a chest pin" },
+  { id: "school",      ko: "교복",         prompt: "a neat school uniform — blazer over a collared shirt and tie — with the notepad-and-sparkle icon as a school badge on the lapel" },
+  { id: "trench",      ko: "트렌치코트",   prompt: "a stylish belted trench coat over a simple shirt, with the notepad-and-sparkle icon as a chest pin" },
+  { id: "dress",       ko: "원피스",       prompt: "a simple cute one-piece dress with the notepad-and-sparkle icon embroidered on the chest" },
+  { id: "lab",         ko: "연구원복",     prompt: "a white lab coat over a turtleneck, with safety glasses on top of the head and the notepad-and-sparkle icon on the chest pocket" },
 ];
 
 export const COLORS: Color[] = [
@@ -62,15 +70,15 @@ export const COLORS: Color[] = [
 ];
 
 export const ACCESSORIES: Accessory[] = [
-  { id: "laptop",     ko: "노트북",       prompt: "holding an open laptop in front, typing pose" },
-  { id: "coffee",     ko: "커피",         prompt: "holding a takeaway coffee cup in one hand" },
-  { id: "mic",        ko: "마이크",       prompt: "holding a podcast microphone, mid-speaking pose" },
-  { id: "book",       ko: "책",           prompt: "holding an open book, reading pose" },
-  { id: "phone",      ko: "스마트폰",     prompt: "holding a smartphone, looking at the screen" },
-  { id: "whiteboard", ko: "화이트보드",   prompt: "standing next to a whiteboard with simple code text" },
-  { id: "camera",     ko: "카메라",       prompt: "holding a DSLR camera, ready-to-shoot pose" },
-  { id: "thumbsup",   ko: "엄지척",       prompt: "giving a confident thumbs-up with one hand, big smile" },
-  { id: "none",       ko: "없음",         prompt: "hands relaxed at sides, friendly standing pose" },
+  { id: "laptop",     ko: "노트북",       prompt: "standing upright, holding a small open laptop with both hands at chest level (not sitting)" },
+  { id: "coffee",     ko: "커피",         prompt: "standing upright, holding a takeaway coffee cup in one hand at waist level" },
+  { id: "mic",        ko: "마이크",       prompt: "standing upright, holding a podcast microphone in one hand near the mouth" },
+  { id: "book",       ko: "책",           prompt: "standing upright, holding a closed book in one hand at waist level" },
+  { id: "phone",      ko: "스마트폰",     prompt: "standing upright, holding a smartphone in one hand at chest level" },
+  { id: "whiteboard", ko: "화이트보드",   prompt: "standing upright next to a small whiteboard on the side, body still facing forward" },
+  { id: "camera",     ko: "카메라",       prompt: "standing upright, holding a small DSLR camera with both hands at chest level" },
+  { id: "thumbsup",   ko: "엄지척",       prompt: "standing upright, giving a confident thumbs-up with one hand, big smile" },
+  { id: "none",       ko: "없음",         prompt: "standing upright, hands relaxed at sides, friendly standing pose" },
 ];
 
 // 기본 선택
@@ -99,7 +107,7 @@ export function buildPrompt(args: {
   const accessory = ACCESSORIES.find((a) => a.id === args.accessoryId) ?? ACCESSORIES[0];
 
   const nameTagSpec = args.nameTag.trim()
-    ? `Wearing a small rectangular name badge on the chest with the text "${args.nameTag.trim()}" printed clearly in bold black sans-serif font on a white background. The name badge must be readable.`
+    ? `Wearing a small rectangular name badge (white background, ~6:2 horizontal proportions) clipped to the upper chest at heart level, FRONT-FACING and CLEARLY VISIBLE in the final image. The badge must NOT be hidden behind the laptop, mic, book, or any accessory. Print the text "${args.nameTag.trim()}" in bold black sans-serif font, large enough to read. If the accessory would block the chest, place the badge slightly to the side but still on the chest area.`
     : `No name badge.`;
 
   const bL = args.bubbleLeft.trim();
@@ -114,8 +122,9 @@ export function buildPrompt(args: {
       : `No speech bubbles.`;
 
   return [
-    `A cute 3D Blender-style mascot character, isometric pose, transparent background, no shadow, soft studio lighting.`,
+    `A cute 3D Blender-style mascot character, transparent background, no shadow, soft studio lighting.`,
     `Character body: cube-shaped sponge cheese with multiple visible holes, bright yellow color, simple smiling face with two black oval eyes and a small curved mouth. Body is fixed yellow — do not change body color.`,
+    `Posture: ALWAYS STANDING UPRIGHT, front-facing, FULL BODY visible from head to feet. NEVER sitting, never crouching, never lying down, never at an extreme angle. Character takes the center of the frame.`,
     `Community signature: a small notepad-with-sparkle icon must appear ONLY on the clothing (chest pocket / chest area). Do NOT place this icon on the hat — the hat is fully decorative and free of brand marks.`,
     `Hat: ${hat.prompt}.`,
     `Outfit: ${color.prompt} ${outfit.prompt}.`,
@@ -123,6 +132,6 @@ export function buildPrompt(args: {
     nameTagSpec,
     bubbleSpec,
     `Style: matte plastic toy figurine, clean simple shapes, no text overlay other than the name badge and speech bubbles if any, no extra props, no other logos, no watermarks.`,
-    `Output: single character centered, transparent background PNG, square 1:1, isometric front-facing view.`,
+    `Output: single character centered, transparent background PNG, square 1:1, isometric front-facing view, standing pose.`,
   ].join(" ");
 }
