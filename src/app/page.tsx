@@ -301,10 +301,10 @@ function PickerGroup<T extends { id: string; ko: string }>({
             <button
               key={opt.id}
               onClick={() => onChange(opt.id)}
-              className={`flex flex-col items-center gap-1 px-2 py-2 border-2 transition ${
+              className={`flex flex-col items-center gap-1 px-2 py-2 bg-white text-[#0A0A0A] transition ${
                 active
-                  ? "bg-[#FBE830] border-[#0A0A0A]"
-                  : "bg-white text-[#0A0A0A] border-[#0A0A0A]/20 hover:border-[#0A0A0A]"
+                  ? "border-[3px] border-[#0A0A0A] shadow-[inset_0_0_0_2px_#FBE830]"
+                  : "border-2 border-[#0A0A0A]/15 hover:border-[#0A0A0A]/60"
               }`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
