@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# sponge-dressup
 
-## Getting Started
+> 스폰지타임즈 캐릭터에 모자·옷·액세서리·이름표·말풍선을 직접 골라 나만의 마스코트를 만드는 웹앱.
+>
+> Gemini 2.5 Flash Image (Nano Banana)로 3D Blender 스타일 PNG 생성 → 다운로드 → [obsidian-cardnews-skill](https://github.com/owenleekr/obsidian-cardnews-skill) 등 어디든 활용.
 
-First, run the development server:
+---
+
+## 미리보기
+
+![sponge-dressup screenshot](public/mascot-portrait.png)
+
+베이스 캐릭터는 [스폰지클럽 1기](https://github.com/owenleekr/obsidian-cardnews-skill) 운영팀 자산. 메모지+✨ 심볼은 옷 가슴에 고정 (브랜드 마크). 모자는 완전 자유.
+
+---
+
+## 기능
+
+- **4가지 커스텀 축** — 모자(10) · 옷(8) × 색(8) · 액세서리(9) · 이름표 · 말풍선 좌우
+- **3D Blender 스타일** — 매트한 토이 피겨 톤, 투명 배경 PNG
+- **AAA Design System v1.0** — 미니멀 3색, Pretendard
+- **즉시 다운로드** — 생성 후 한 번 클릭으로 PNG
+
+---
+
+## 로컬 개발
 
 ```bash
+git clone https://github.com/owenleekr/sponge-dressup.git
+cd sponge-dressup
+npm install
+cp .env.example .env.local
+# .env.local 에 GEMINI_API_KEY 입력
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+http://localhost:3001 접속.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Gemini API 키 발급
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. https://aistudio.google.com/apikey 에서 키 생성
+2. **결제 활성화 필수** (이미지 생성은 free tier 미포함)
+   - 키 우측 "Plan" → "Tier 1 (paid)" 로 업그레이드
+3. 사용량 한도 권장:
+   - 예산 알림: 월 $20~30
+   - API 쿼터: 일 200~300건
 
-## Learn More
+### 비용
 
-To learn more about Next.js, take a look at the following resources:
+- Gemini 2.5 Flash Image: 장당 약 **$0.039**
+- 70명 × 3장 평균 = 약 **$8-10 전체**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 배포 (Vercel)
 
-## Deploy on Vercel
+```bash
+vercel --prod
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+또는 GitHub 연동 후 자동 배포. **환경변수 `GEMINI_API_KEY` 필수**.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 디자인 원칙
+
+1. **본체 고정** — 노란 큐브 스폰지 + 메모지+✨ 심볼 = 스폰지타임즈 IP
+2. **모자는 자유** — 메모지 안 들어감 (브랜드 마크는 옷에만)
+3. **이름표·말풍선 영문 권장** — Gemini가 한글 텍스트는 종종 실패
+
+---
+
+## 라이선스 / IP
+
+- **앱 코드**: MIT
+- **스폰지타임즈 캐릭터 / 메모지 심볼**: 스폰지클럽 1기 운영팀 자산.
+  외부 사용 시 운영팀 양해 필요.
+- **만든이**: 오웬 ([@owenleekr](https://github.com/owenleekr))
+
+---
+
+## 연관 프로젝트
+
+- [obsidian-cardnews-skill](https://github.com/owenleekr/obsidian-cardnews-skill) — 옵시디언 미션 제출을 인스타 카드뉴스로 변환. 여기서 만든 캐릭터를 카드뉴스 마스코트로 사용 가능.
