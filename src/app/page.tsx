@@ -10,6 +10,7 @@ import {
   DEFAULTS,
 } from "@/lib/options";
 import { compositeBubbles } from "@/lib/bubbles";
+import { removeWhiteBackground } from "@/lib/chromakey";
 
 type Result = {
   image: string;
@@ -70,17 +71,36 @@ export default function Home() {
     }
   }
 
-  function handleDownload() {
-    if (!result) return;
-    const link = document.createElement("a");
-    link.href = result.image;
-    const safeTag = nameTag.trim()
+  function safeFileTag(): string {
+    return nameTag.trim()
       ? nameTag.trim().replace(/[^\w가-힣ㄱ-ㅎㅏ-ㅣ-]/g, "_")
       : "mascot";
-    link.download = `sponge-${safeTag}.png`;
+  }
+
+  function triggerDownload(dataUri: string, suffix: string) {
+    const link = document.createElement("a");
+    link.href = dataUri;
+    link.download = `sponge-${safeFileTag()}-${suffix}.png`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  }
+
+  function handleDownloadWhite() {
+    if (!result) return;
+    triggerDownload(result.image, "white");
+  }
+
+  const [processingTransparent, setProcessingTransparent] = useState(false);
+  async function handleDownloadTransparent() {
+    if (!result) return;
+    setProcessingTransparent(true);
+    try {
+      const transparent = await removeWhiteBackground(result.image);
+      triggerDownload(transparent, "transparent");
+    } finally {
+      setProcessingTransparent(false);
+    }
   }
 
   return (
@@ -233,16 +253,25 @@ export default function Home() {
           )}
 
           {result && (
-            <div className="mt-4 flex gap-3">
-              <button
-                onClick={handleDownload}
-                className="flex-1 py-3 bg-[#FBE830] border-2 border-[#0A0A0A] text-base font-extrabold tracking-tight hover:bg-[#FFF260] transition"
-              >
-                PNG 다운로드
-              </button>
+            <div className="mt-4 space-y-3">
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  onClick={handleDownloadTransparent}
+                  disabled={processingTransparent}
+                  className="py-3 px-2 bg-[#FBE830] border-2 border-[#0A0A0A] text-sm font-extrabold tracking-tight hover:bg-[#FFF260] transition disabled:opacity-50"
+                >
+                  {processingTransparent ? "처리 중..." : "PNG 투명배경"}
+                </button>
+                <button
+                  onClick={handleDownloadWhite}
+                  className="py-3 px-2 bg-white border-2 border-[#0A0A0A] text-sm font-bold hover:bg-gray-50 transition"
+                >
+                  PNG 흰배경 #FFF
+                </button>
+              </div>
               <button
                 onClick={handleGenerate}
-                className="flex-1 py-3 bg-white border-2 border-[#0A0A0A] text-base font-bold hover:bg-gray-50 transition"
+                className="w-full py-2 bg-transparent border border-[#0A0A0A]/30 text-sm font-semibold hover:border-[#0A0A0A] transition"
               >
                 다시 그리기
               </button>
