@@ -12,7 +12,7 @@ import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
-import { HATS, OUTFITS, ACCESSORIES, COLORS } from "../src/lib/options";
+import { HATS, OUTFITS, ACCESSORIES, EXPRESSIONS, COLORS } from "../src/lib/options";
 
 const ROOT = path.resolve(__dirname, "..");
 const OUTPUT_ROOT = path.join(ROOT, "public", "thumbs");
@@ -137,6 +137,15 @@ Outfit: plain BLUE overalls with a small notepad-and-sparkle on the chest pocket
 Pose / holding: ${accessoryPrompt}.`;
 }
 
+function expressionPrompt(expressionPrompt: string): string {
+  return `${BASE}
+Hat: a simple plain neutral GRAY baseball cap, no logos or icons.
+Outfit: plain BLUE overalls with a small notepad-and-sparkle on the chest pocket.
+Pose: hands relaxed at sides, no accessories.
+Face expression: ${expressionPrompt}.
+IMPORTANT: emphasize the face expression clearly — this is the focus of the thumbnail.`;
+}
+
 async function main(): Promise<void> {
   const apiKey = await loadEnv();
   const blue = COLORS.find((c) => c.id === "blue")!;
@@ -157,6 +166,11 @@ async function main(): Promise<void> {
   console.log(`\n🎒 Accessories (${ACCESSORIES.length})`);
   for (const a of ACCESSORIES) {
     await generateAndSave(apiKey, "accessories", a.id, accessoryPrompt(a.prompt));
+  }
+
+  console.log(`\n😊 Expressions (${EXPRESSIONS.length})`);
+  for (const e of EXPRESSIONS) {
+    await generateAndSave(apiKey, "expressions", e.id, expressionPrompt(e.prompt));
   }
 
   console.log(`\n✅ Done. Thumbnails saved to ${OUTPUT_ROOT}`);

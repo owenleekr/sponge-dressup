@@ -7,6 +7,7 @@ import {
   OUTFITS,
   COLORS,
   ACCESSORIES,
+  EXPRESSIONS,
   DEFAULTS,
 } from "@/lib/options";
 import { compositeBubbles } from "@/lib/bubbles";
@@ -22,6 +23,7 @@ export default function Home() {
   const [outfitId, setOutfitId] = useState<string>(DEFAULTS.outfitId);
   const [colorId, setColorId] = useState<string>(DEFAULTS.colorId);
   const [accessoryId, setAccessoryId] = useState<string>(DEFAULTS.accessoryId);
+  const [expressionId, setExpressionId] = useState<string>(DEFAULTS.expressionId);
   const [nameTag, setNameTag] = useState<string>(DEFAULTS.nameTag);
   const [bubbleLeft, setBubbleLeft] = useState<string>(DEFAULTS.bubbleLeft);
   const [bubbleRight, setBubbleRight] = useState<string>(DEFAULTS.bubbleRight);
@@ -53,7 +55,7 @@ export default function Home() {
       const res = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ hatId, outfitId, colorId, accessoryId, nameTag }),
+        body: JSON.stringify({ hatId, outfitId, colorId, accessoryId, expressionId, nameTag }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -161,6 +163,13 @@ export default function Home() {
             options={ACCESSORIES}
             valueId={accessoryId}
             onChange={setAccessoryId}
+          />
+          <PickerGroup
+            label="표정"
+            category="expressions"
+            options={EXPRESSIONS}
+            valueId={expressionId}
+            onChange={setExpressionId}
           />
 
           <div>
@@ -315,7 +324,7 @@ function PickerGroup<T extends { id: string; ko: string }>({
   onChange,
 }: {
   label: string;
-  category: "hats" | "outfits" | "accessories";
+  category: "hats" | "outfits" | "accessories" | "expressions";
   options: readonly T[];
   valueId: string;
   onChange: (id: string) => void;

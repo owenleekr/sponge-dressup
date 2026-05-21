@@ -26,6 +26,12 @@ export type Accessory = {
   prompt: string;
 };
 
+export type Expression = {
+  id: string;
+  ko: string;
+  prompt: string;
+};
+
 export const HATS: Hat[] = [
   { id: "cap",        ko: "캡",         prompt: "a simple plain baseball cap, solid color, no logos or icons" },
   { id: "beanie",     ko: "비니",       prompt: "a knit beanie, soft texture, no logos or icons" },
@@ -95,12 +101,24 @@ export const ACCESSORIES: Accessory[] = [
   { id: "none",       ko: "없음",         prompt: "standing upright, hands relaxed at sides, friendly standing pose" },
 ];
 
+export const EXPRESSIONS: Expression[] = [
+  { id: "default",   ko: "기본",     prompt: "two small black oval eyes facing forward, gentle slightly curved smile mouth — calm friendly look" },
+  { id: "big_smile", ko: "활짝",     prompt: "two happy closed curved eyes shaped like upward arcs (^_^), wide open joyful smile showing a happy mood" },
+  { id: "wink",      ko: "윙크",     prompt: "left eye closed as a small upward-curved arc (winking), right eye open as a normal black oval, playful half-smile mouth" },
+  { id: "surprised", ko: "놀람",     prompt: "two wide-open large round eyes (surprised), small round open 'O' shaped mouth, slightly raised cheeks — shocked look" },
+  { id: "cool",      ko: "시크",     prompt: "two narrow half-closed eyes (slightly squinting like a cool dude), flat or very slight smirk mouth — chill confident look" },
+  { id: "heart",     ko: "두근",     prompt: "two pink heart-shaped eyes (♥♥), big open smile, blushing cheeks — lovestruck excited look" },
+  { id: "sleepy",    ko: "졸림",     prompt: "two half-closed droopy eyes with small lines under them, small relaxed slightly open mouth, tilted head — sleepy tired look" },
+  { id: "sad",       ko: "울상",     prompt: "two black oval eyes with small tear droplets at the corners, downturned wavy mouth — sad about-to-cry look" },
+];
+
 // 기본 선택
 export const DEFAULTS = {
   hatId: "cap",
   outfitId: "overalls",
   colorId: "blue",
   accessoryId: "thumbsup",
+  expressionId: "default",
   nameTag: "",
   bubbleLeft: "",
   bubbleRight: "",
@@ -111,12 +129,14 @@ export function buildPrompt(args: {
   outfitId: string;
   colorId: string;
   accessoryId: string;
+  expressionId: string;
   nameTag: string;
 }): string {
   const hat = HATS.find((h) => h.id === args.hatId) ?? HATS[0];
   const outfit = OUTFITS.find((o) => o.id === args.outfitId) ?? OUTFITS[0];
   const color = COLORS.find((c) => c.id === args.colorId) ?? COLORS[0];
   const accessory = ACCESSORIES.find((a) => a.id === args.accessoryId) ?? ACCESSORIES[0];
+  const expression = EXPRESSIONS.find((e) => e.id === args.expressionId) ?? EXPRESSIONS[0];
 
   const nameTagSpec = args.nameTag.trim()
     ? `Wearing a small rectangular name badge (white background, ~6:2 horizontal proportions) clipped to the upper chest at heart level, FRONT-FACING and CLEARLY VISIBLE in the final image. The badge must NOT be hidden behind the laptop, mic, book, or any accessory. Print the text "${args.nameTag.trim()}" in bold black sans-serif font, large enough to read. If the accessory would block the chest, place the badge slightly to the side but still on the chest area.`
@@ -124,7 +144,8 @@ export function buildPrompt(args: {
 
   return [
     `A cute 3D Blender-style mascot character on a PURE WHITE solid background (#FFFFFF). No checker pattern, no transparency, no gradient, no shadow under the character — just clean uniform white behind.`,
-    `Character body: cube-shaped sponge cheese with multiple visible holes, bright yellow color, simple smiling face with two black oval eyes and a small curved mouth. Body is fixed yellow — do not change body color.`,
+    `Character body: cube-shaped sponge cheese with multiple visible holes, bright yellow color. Body is fixed yellow — do not change body color.`,
+    `Face expression: ${expression.prompt}.`,
     `Posture: ALWAYS STANDING UPRIGHT, front-facing, FULL BODY visible from head to feet. NEVER sitting, never crouching, never lying down, never at an extreme angle. Character takes the center of the frame.`,
     `Community signature: a small notepad-with-sparkle icon must appear ONLY on the clothing (chest pocket / chest area). Do NOT place this icon on the hat — the hat is fully decorative and free of brand marks.`,
     `Hat: ${hat.prompt}.`,

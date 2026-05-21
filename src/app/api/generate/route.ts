@@ -14,6 +14,7 @@ type GenerateBody = {
   outfitId: string;
   colorId: string;
   accessoryId: string;
+  expressionId: string;
   nameTag: string;
 };
 
@@ -51,6 +52,7 @@ export async function POST(req: NextRequest) {
     outfitId: body.outfitId,
     colorId: body.colorId,
     accessoryId: body.accessoryId,
+    expressionId: body.expressionId ?? "default",
     nameTag: body.nameTag ?? "",
   });
 
