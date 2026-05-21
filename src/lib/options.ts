@@ -98,6 +98,9 @@ export const ACCESSORIES: Accessory[] = [
   { id: "whiteboard", ko: "화이트보드",   prompt: "standing upright next to a small whiteboard on the side, body still facing forward" },
   { id: "camera",     ko: "카메라",       prompt: "standing upright, holding a small DSLR camera with both hands at chest level" },
   { id: "thumbsup",   ko: "엄지척",       prompt: "standing upright, giving a confident thumbs-up with one hand, big smile" },
+  { id: "waving",     ko: "손인사",       prompt: "standing upright, raising one hand high to wave hello, friendly greeting pose, other hand relaxed at side" },
+  { id: "thinking",   ko: "생각하기",     prompt: "standing upright, one hand raised with finger touching chin in a thinking pose, head slightly tilted, contemplative" },
+  { id: "cheering",   ko: "환호",         prompt: "standing upright, one arm raised triumphantly up in the air with a fist, excited celebratory pose" },
   { id: "none",       ko: "없음",         prompt: "standing upright, hands relaxed at sides, friendly standing pose" },
 ];
 
@@ -106,10 +109,12 @@ export const EXPRESSIONS: Expression[] = [
   { id: "big_smile", ko: "활짝",     prompt: "two happy closed curved eyes shaped like upward arcs (^_^), wide open joyful smile showing a happy mood" },
   { id: "wink",      ko: "윙크",     prompt: "left eye closed as a small upward-curved arc (winking), right eye open as a normal black oval, playful half-smile mouth" },
   { id: "surprised", ko: "놀람",     prompt: "two wide-open large round eyes (surprised), small round open 'O' shaped mouth, slightly raised cheeks — shocked look" },
+  { id: "angry",     ko: "화남",     prompt: "two black eyes with sharp downturned eyebrows above them (angry V-shape), small frowning downturned mouth — irritated grumpy look" },
   { id: "cool",      ko: "시크",     prompt: "two narrow half-closed eyes (slightly squinting like a cool dude), flat or very slight smirk mouth — chill confident look" },
   { id: "heart",     ko: "두근",     prompt: "two pink heart-shaped eyes (♥♥), big open smile, blushing cheeks — lovestruck excited look" },
-  { id: "sleepy",    ko: "졸림",     prompt: "two half-closed droopy eyes with small lines under them, small relaxed slightly open mouth, tilted head — sleepy tired look" },
-  { id: "sad",       ko: "울상",     prompt: "two black oval eyes with small tear droplets at the corners, downturned wavy mouth — sad about-to-cry look" },
+  { id: "thinking",  ko: "생각",     prompt: "two black eyes looking slightly upward to the side, one curious raised eyebrow, small closed mouth in a contemplative line — pondering thinking look" },
+  { id: "sleepy",    ko: "졸림",     prompt: "two half-closed droopy eyes with small lines under them, small relaxed slightly open mouth, tilted head — sleepy tired look. Small 'Z Z' letters floating above the head." },
+  { id: "sad",       ko: "울상",     prompt: "two black oval eyes with small blue tear droplets at the corners, downturned wavy mouth — sad about-to-cry look" },
 ];
 
 // 기본 선택
